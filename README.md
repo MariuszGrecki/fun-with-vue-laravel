@@ -1,7 +1,7 @@
 # Voter
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12">
+  <img src="https://img.shields.io/badge/Laravel-13-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 13">
   <img src="https://img.shields.io/badge/Vue-3-42B883?style=for-the-badge&logo=vuedotjs&logoColor=white" alt="Vue 3">
   <img src="https://img.shields.io/badge/Pinia-state-FFD859?style=for-the-badge&logo=vuedotjs&logoColor=black" alt="Pinia">
   <img src="https://img.shields.io/badge/PrimeVue-Aura-6366F1?style=for-the-badge" alt="PrimeVue Aura">
@@ -42,7 +42,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane jako osobny bundle, Evidence Scor
 
 | Warstwa | Narzedzia |
 | --- | --- |
-| Backend | Laravel 12, PHP, Eloquent ORM, Form Requests, Policies |
+| Backend | Laravel 13, PHP, Eloquent ORM, Form Requests, Policies |
 | Frontend | Vue 3, Composition API, TypeScript, Vite |
 | UI | PrimeVue, theme Aura, PrimeIcons |
 | Stan frontendu | Pinia, composables, typowane klienty API |
@@ -68,7 +68,7 @@ PrimeVue z theme Aura odpowiada za warstwe UI. Dzieki temu skupiamy sie na logic
 
 ## PostgreSQL
 
-Projekt uzywa PostgreSQL zamiast MySQL, bo Voter ma charakter aplikacji SaaS z relacyjnymi danymi: organizacje, produkty, requesty, glosy, komentarze, roadmapa, changelog i synchronizacja przez `external_id`.
+Projekt uzywa PostgreSQL jako glownej bazy danych, bo Voter ma charakter aplikacji SaaS z relacyjnymi danymi: organizacje, produkty, requesty, glosy, komentarze, roadmapa, changelog i synchronizacja przez `external_id`.
 
 PostgreSQL dobrze pasuje do tego typu domeny i zostawia miejsce na pozniejsze rozszerzenia, np. indeksy pod wyszukiwanie, agregacje analytics albo bardziej zaawansowane typy danych.
 
@@ -90,18 +90,18 @@ Domyslne lokalne uslugi:
 
 ```bash
 cp .env.example .env
-./vendor/bin/sail up -d
-./vendor/bin/sail artisan migrate
-./vendor/bin/sail npm run dev
+docker compose up -d
+docker compose exec laravel.test php artisan migrate
+docker compose exec laravel.test npm run dev
 ```
 
 ## Przydatne Komendy
 
 ```bash
-./vendor/bin/sail artisan test
-./vendor/bin/sail npm run type-check
-./vendor/bin/sail npm run build
-./vendor/bin/sail pint
+docker compose exec laravel.test php artisan test
+docker compose exec laravel.test npm run type-check
+docker compose exec laravel.test npm run build
+docker compose exec laravel.test ./vendor/bin/pint
 ```
 
 ## Roadmapa Nauki

@@ -26,7 +26,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 
 ## Stack
 
-- Backend: Laravel 12.
+- Backend: Laravel 13.
 - Frontend: Vue 3 + TypeScript.
 - UI: PrimeVue + theme Aura.
 - State management: Pinia.
