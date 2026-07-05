@@ -1,59 +1,74 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useWorkspaceStore, type WorkspaceView } from './stores/workspace';
+import Button from 'primevue/button';
+import Card from 'primevue/card';
+import Tag from 'primevue/tag';
+import { useProductStore, type VoterView } from './stores/product';
 
 type StackItem = {
     label: string;
     purpose: string;
 };
 
-const workspaceStore = useWorkspaceStore();
-const { activeView, currentWorkspace, workspaceLabel } = storeToRefs(workspaceStore);
+const productStore = useProductStore();
+const { activeView, currentProduct, productLabel } = storeToRefs(productStore);
 
-const views: WorkspaceView[] = ['list', 'board', 'calendar'];
+const views: VoterView[] = ['feedback', 'roadmap', 'changelog'];
 
 const stack: StackItem[] = [
     {
         label: 'Laravel API',
-        purpose: 'Workspaces, projects, tasks, comments, roles, validation and tests.',
+        purpose: 'Organizations, products, feature requests, votes, comments, roadmap and changelog.',
     },
     {
         label: 'Vue 3 + TypeScript',
-        purpose: 'Typed screens, components, forms, API responses and refactors.',
+        purpose: 'Typed admin screens, public board, widgets and API responses.',
     },
     {
         label: 'Pinia',
-        purpose: 'Shared frontend state: current workspace, active view, filters and user context.',
+        purpose: 'Shared state: current product, active view, filters and user context.',
     },
     {
-        label: 'Docker Compose',
-        purpose: 'Consistent runtime with PHP, MySQL, Redis and Mailpit.',
+        label: 'PrimeVue + Aura',
+        purpose: 'Ready UI components and a consistent visual theme without custom CSS-first work.',
+    },
+    {
+        label: 'PostgreSQL',
+        purpose: 'Relational data for SaaS organizations, feedback, votes and changelog sync.',
     },
 ];
 </script>
 
 <template>
     <main>
-        <h1>FlowBoard</h1>
-        <p>Workspace-based project management for teams, projects and tasks.</p>
+        <Card>
+            <template #title>Voter</template>
+            <template #subtitle>{{ productLabel }}</template>
+            <template #content>
+                <p>
+                    Collect feedback, prioritize feature requests, publish roadmap updates
+                    and close the loop with users.
+                </p>
+
+                <div>
+                    <Tag severity="info" :value="`${currentProduct.openRequestCount} open`" />
+                    <Tag severity="warn" :value="`${currentProduct.plannedRequestCount} planned`" />
+                    <Tag severity="success" :value="`${currentProduct.releasedRequestCount} released`" />
+                </div>
+            </template>
+        </Card>
 
         <section>
-            <h2>{{ workspaceLabel }}</h2>
-            <p>
-                {{ currentWorkspace.activeProjectCount }} active projects,
-                {{ currentWorkspace.openTaskCount }} open tasks.
-            </p>
-
+            <h2>Product views</h2>
             <div>
-                <button
+                <Button
                     v-for="view in views"
                     :key="view"
                     type="button"
-                    :aria-pressed="activeView === view"
-                    @click="workspaceStore.setActiveView(view)"
-                >
-                    {{ view }}
-                </button>
+                    :label="view"
+                    :severity="activeView === view ? 'primary' : 'secondary'"
+                    @click="productStore.setActiveView(view)"
+                />
             </div>
         </section>
 

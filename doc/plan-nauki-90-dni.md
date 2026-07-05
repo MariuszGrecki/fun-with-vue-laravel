@@ -1,21 +1,41 @@
 # Plan Nauki: 90 Dni Vue 3 + TypeScript + Laravel
 
-Plan zaklada okolo 1 godzine dziennie. Priorytetem jest samodzielne pisanie kodu, debugowanie i rozumienie decyzji technicznych. Mentor najpierw tlumaczy temat, potem Ty implementujesz, a dopiero po Twojej probie robimy review, debugowanie i korekty.
+Plan zaklada okolo 1 godzine dziennie. Budujemy Voter: SaaS do feedbacku, glosowania na funkcje, roadmapy, changeloga i zamykania petli feedbacku z uzytkownikami.
 
-## Cel Projektu
+Nie probujemy zrobic calego produktu z `doc/idea.md` w 90 godzin. Celem jest sensowne MVP, ktore pokazuje glowna wartosc aplikacji i daje praktyke z Laravel API, Vue 3, TypeScript, Pinia, PrimeVue Aura, PostgreSQL, testami i CI/CD.
 
-Budujemy FlowBoard: aplikacje do zarzadzania praca zespolu inspirowana narzedziami typu ClickUp. System bedzie obslugiwal workspace'y, projekty, listy, zadania, subtaski, komentarze, statusy, priorytety, terminy, tagi i rozne widoki pracy: lista, kanban oraz kalendarz.
+## MVP Votera
 
-Stylowanie jest drugorzedne. Najwazniejsze sa: architektura, API, typy, Pinia, relacje w bazie, walidacja, testy, debugowanie oraz CI/CD.
+MVP obejmuje:
 
-## Zasada Architektury Frontendu
+- organizacje i produkty,
+- publiczny feedback board,
+- dodawanie requestow,
+- glosowanie,
+- komentarze,
+- statusy requestow,
+- panel admina,
+- roadmapa `Now / Next / Later / Done`,
+- changelog,
+- powiazanie changeloga z requestami,
+- podstawowe powiadomienia przez Mailpit,
+- endpoint API do synchronizacji changeloga z `external_id`,
+- podstawowe analytics.
 
-Pinia wchodzi od poczatku, bo FlowBoard bedzie mial stan wspoldzielony miedzy wieloma ekranami.
+Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom domain, integracje, zaawansowane role i headless mode.
 
-- Pinia: aktualny workspace, zalogowany uzytkownik, aktywny widok, filtry, kontekst projektu, statusy i tagi.
-- Local state: formularze, dropdowny, tymczasowe wartosci inputow, pojedyncze modale.
-- Composables: requesty API, mapowanie danych, logika filtrowania, wspolne zachowania formularzy.
-- Laravel API: zrodlo prawdy dla danych trwalych, relacji, walidacji i uprawnien.
+## Stack
+
+- Backend: Laravel 12.
+- Frontend: Vue 3 + TypeScript.
+- UI: PrimeVue + theme Aura.
+- State management: Pinia.
+- Baza danych: PostgreSQL.
+- Cache / kolejki: Redis.
+- Mail dev: Mailpit.
+- Srodowisko: Docker Compose / Laravel Sail.
+- Jakosc: PHPUnit, Pint, vue-tsc, Vite build.
+- CI/CD: GitHub Actions.
 
 ## Rytm Dnia
 
@@ -28,158 +48,141 @@ Pinia wchodzi od poczatku, bo FlowBoard bedzie mial stan wspoldzielony miedzy wi
 
 | Dni | Temat | Efekt |
 | --- | --- | --- |
-| 1-10 | Fundamenty projektu | Docker, Laravel, Vue, TypeScript, Pinia, pierwsze API |
-| 11-25 | Backend FlowBoard | Workspace'y, projekty, listy, zadania, relacje, CRUD |
-| 26-40 | Frontend Vue + Pinia | Komponenty, routing, store'y, formularze, API client |
-| 41-55 | Widoki pracy i uprawnienia | Lista, kanban, kalendarz, auth, role, policies |
-| 56-65 | Nuxt i architektura Vue | Czym jest Nuxt, SSR/SPA, porownanie z Vite SPA |
+| 1-10 | Fundamenty Votera | Docker, PostgreSQL, Laravel, Vue, Pinia, PrimeVue |
+| 11-25 | Backend feedback boarda | Organizacje, produkty, requesty, glosy, komentarze |
+| 26-40 | Frontend publiczny i admin | PrimeVue UI, formularze, board, filtry, store'y |
+| 41-55 | Roadmapa i changelog | Roadmapa, update'y, linkowanie requestow z release |
+| 56-65 | Sync API i powiadomienia | `external_id`, endpoint sync, Mailpit, podstawowe analytics |
 | 66-78 | Testy i CI/CD | PHPUnit, feature tests, type-check, build, GitHub Actions |
-| 79-90 | Debugowanie i finalizacja | Bugfixing, refactor, performance, finalne demo |
+| 79-90 | Debugowanie i final | Refactor, edge case'y, demo, podsumowanie |
 
 ## Plan Dzien Po Dniu
 
 ### Dni 1-10: Fundamenty
 
-1. Dzien 1: Architektura FlowBoard: Laravel API, Vue SPA, Pinia, Docker Compose.
-2. Dzien 2: Struktura katalogow Laravela: routes, controllers, models, migrations, config, tests.
-3. Dzien 3: Struktura Vue 3 + TypeScript: `script setup`, komponenty, props, reactive state.
-4. Dzien 4: Pinia od podstaw: `defineStore`, state, getters, actions, `storeToRefs`.
-5. Dzien 5: Pierwszy store `workspace`: aktywny workspace i aktywny widok.
-6. Dzien 6: Pierwszy endpoint API `GET /api/health` i test feature w Laravelu.
-7. Dzien 7: Pierwszy request z Vue do API przez typed API client.
-8. Dzien 8: Debugowanie 404, 500, CORS i bledow w konsoli przegladarki.
-9. Dzien 9: Migracje i Eloquent: tabela `workspaces`, model `Workspace`, factory.
-10. Dzien 10: Review tygodnia: kiedy Pinia, kiedy local state, kiedy composable.
+1. Dzien 1: Architektura Votera i omowienie MVP wzgledem pelnego `idea.md`.
+2. Dzien 2: Docker Compose, `compose.yaml`, PostgreSQL, Redis i Mailpit.
+3. Dzien 3: Struktura Laravel: routes, controllers, models, migrations, requests, resources, tests.
+4. Dzien 4: Vue 3 + TypeScript: `script setup`, komponenty, props, typy.
+5. Dzien 5: PrimeVue + Aura: Button, Card, DataTable, Dialog, Tag, Toast.
+6. Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
+7. Dzien 7: Pierwszy store `product`: aktywny produkt i aktywny widok.
+8. Dzien 8: Pierwszy endpoint API `GET /api/health` i test feature.
+9. Dzien 9: Pierwszy request z Vue do API przez typed API client.
+10. Dzien 10: Review fundamentow: kiedy Pinia, kiedy local state, kiedy composable.
 
-### Dni 11-25: Backend FlowBoard
+### Dni 11-25: Backend Feedback Boarda
 
-11. Dzien 11: `WorkspaceController@index` i API Resource dla workspace'a.
-12. Dzien 12: `WorkspaceController@store`, Form Request i walidacja danych.
-13. Dzien 13: `WorkspaceController@show`, update i delete.
-14. Dzien 14: Czlonkowie workspace'a: tabela pivot, role i relacje.
-15. Dzien 15: Model `Project`, migracja i relacja `Workspace hasMany Project`.
-16. Dzien 16: CRUD projektow z filtrem po workspace.
-17. Dzien 17: Model `TaskList`, kolejnosc list i relacja z projektem.
-18. Dzien 18: Model `Task`, status, priorytet, termin i opis.
-19. Dzien 19: Relacje taskow: assignee, creator, project, list.
-20. Dzien 20: Subtaski: relacja self-referencing albo osobna tabela - decyzja projektowa.
-21. Dzien 21: Komentarze do zadan i historia aktywnosci.
-22. Dzien 22: Tagi i filtrowanie po tagach.
-23. Dzien 23: Sortowanie i paginacja zadan po statusie, terminie, priorytecie.
-24. Dzien 24: Standaryzacja odpowiedzi API i bledow walidacji.
-25. Dzien 25: Backend review: kontrolery, requesty, resources, testy, nazewnictwo.
+11. Dzien 11: Model `Organization`, migracja, factory, seeder.
+12. Dzien 12: Model `Product`, relacja z organizacja.
+13. Dzien 13: Publiczny identyfikator produktu: slug albo public key.
+14. Dzien 14: Model `FeatureRequest`: tytul, opis, status, author, product.
+15. Dzien 15: Statusy requestow: enum i walidacja.
+16. Dzien 16: `FeatureRequestController@index` z filtrowaniem i sortowaniem.
+17. Dzien 17: `FeatureRequestController@store` z Form Request.
+18. Dzien 18: Glosowanie: model `Vote`, unikalnosc glosu per user/email/request.
+19. Dzien 19: Komentarze: model `Comment`, relacje, walidacja.
+20. Dzien 20: API Resources dla requestow, glosow i komentarzy.
+21. Dzien 21: Wyszukiwanie requestow po tytule i opisie.
+22. Dzien 22: Kategorie lub tagi w minimalnym zakresie.
+23. Dzien 23: Admin endpointy do zmiany statusu requestu.
+24. Dzien 24: Testy feature dla requestow, glosow i komentarzy.
+25. Dzien 25: Review backendu feedback boarda.
 
-### Dni 26-40: Vue 3 + TypeScript + Pinia
+### Dni 26-40: Frontend Publiczny i Admin
 
-26. Dzien 26: Vue Router: workspace, projekt, lista zadan, szczegoly zadania.
-27. Dzien 27: Typy TypeScript dla `Workspace`, `Project`, `TaskList`, `Task`, `User`.
-28. Dzien 28: API client: jedna warstwa do requestow HTTP.
-29. Dzien 29: Store `workspace`: lista workspace'ow, aktywny workspace, loading, error.
-30. Dzien 30: Store `project`: aktywny projekt, listy i licznik zadan.
-31. Dzien 31: Store `taskFilters`: statusy, priorytety, assignee, tagi, search.
-32. Dzien 32: Lista workspace'ow z loading, empty state i error state.
-33. Dzien 33: Formularz workspace'a z `v-model` i typowanym stanem formularza.
-34. Dzien 34: Obsluga bledow walidacji z Laravela po stronie Vue.
-35. Dzien 35: Lista projektow w aktywnym workspace.
-36. Dzien 36: Lista zadan projektu z filtrami z Pinii.
-37. Dzien 37: Kiedy nie uzywac Pinii: formularze i lokalne UI state.
-38. Dzien 38: Composables: `useWorkspaces`, `useProjects`, `useTasks`.
-39. Dzien 39: Debugowanie reaktywnosci Vue, Pinia Devtools, watch, computed.
-40. Dzien 40: Frontend review: komponenty, store'y, composables, typy, API client.
+26. Dzien 26: Routing frontendu: public board, request details, admin.
+27. Dzien 27: Typy TypeScript dla `Product`, `FeatureRequest`, `Vote`, `Comment`.
+28. Dzien 28: API client i obsluga bledow walidacji.
+29. Dzien 29: Publiczny board w PrimeVue DataTable.
+30. Dzien 30: Formularz dodawania requestu w PrimeVue Dialog.
+31. Dzien 31: Glosowanie z optimistic update i obsluga rollbacku.
+32. Dzien 32: Szczegoly requestu i komentarze.
+33. Dzien 33: Store `requestFilters`: status, sortowanie, search.
+34. Dzien 34: Admin lista requestow z DataTable i Tag statusu.
+35. Dzien 35: Admin zmienia status requestu.
+36. Dzien 36: Toasty i ConfirmDialog dla akcji uzytkownika.
+37. Dzien 37: Empty states, loading states i error states.
+38. Dzien 38: Refactor komponentow: board, request row, status tag, dialog.
+39. Dzien 39: Debugowanie Vue, Pinia i requestow sieciowych.
+40. Dzien 40: Review frontendu publicznego i admina.
 
-### Dni 41-55: Widoki Pracy, Auth i Uprawnienia
+### Dni 41-55: Roadmapa i Changelog
 
-41. Dzien 41: Widok listy: grupowanie zadan po statusie albo liscie.
-42. Dzien 42: Widok kanban: kolumny statusow i przenoszenie zadania miedzy statusami.
-43. Dzien 43: Drag and drop: biblioteka, zdarzenia, aktualizacja API.
-44. Dzien 44: Widok kalendarza: zadania z terminami.
-45. Dzien 45: Szczegoly zadania: opis, komentarze, assignee, tagi, aktywnosc.
-46. Dzien 46: Laravel auth: sesje vs tokeny, wybor podejscia dla tego projektu.
-47. Dzien 47: Rejestracja i logowanie uzytkownika.
-48. Dzien 48: Store `auth`: zalogowany uzytkownik i status sesji.
-49. Dzien 49: Ochrona endpointow API przez middleware.
-50. Dzien 50: Route guards w Vue.
-51. Dzien 51: Role w workspace: owner, admin, member, guest.
-52. Dzien 52: Laravel Policies dla workspace'ow, projektow i zadan.
-53. Dzien 53: Testy autoryzacji: 401, 403, dostep czlonka workspace.
-54. Dzien 54: Mailpit i pierwszy mail dev, np. powiadomienie o przypisaniu zadania.
-55. Dzien 55: Review modulu auth, widokow pracy i decyzji architektonicznych.
+41. Dzien 41: Model `RoadmapItem` i kolumny `Now / Next / Later / Done`.
+42. Dzien 42: Powiazanie roadmap item z requestem.
+43. Dzien 43: Publiczny widok roadmapy w PrimeVue.
+44. Dzien 44: Admin zarzadza roadmapa.
+45. Dzien 45: Model `ChangelogEntry`.
+46. Dzien 46: Kategorie changeloga: Added / Improved / Fixed.
+47. Dzien 47: Publiczny widok changeloga.
+48. Dzien 48: Admin tworzy wpis changeloga.
+49. Dzien 49: Powiazanie changelog entry z feature requestem.
+50. Dzien 50: Zmiana statusu requestu na `Released` po powiazaniu z release.
+51. Dzien 51: Informacja `Released in` przy requestcie.
+52. Dzien 52: Upload/screenshot URL w wersji minimalnej jako pole tekstowe.
+53. Dzien 53: Testy feature roadmapy.
+54. Dzien 54: Testy feature changeloga.
+55. Dzien 55: Review petli feedback -> roadmap -> changelog -> released.
 
-### Dni 56-65: Nuxt i Szerszy Ekosystem Vue
+### Dni 56-65: Sync API, Powiadomienia, Analytics
 
-56. Dzien 56: Czym jest Nuxt: framework na Vue, routing plikowy, SSR, SSG, server routes.
-57. Dzien 57: Nuxt vs Vite SPA: kiedy wybrac Nuxt, kiedy zostac przy czystym Vue.
-58. Dzien 58: Mini spike Nuxt poza glowna aplikacja: `pages`, `components`, `server`.
-59. Dzien 59: Data fetching w Nuxt: `useFetch`, `useAsyncData`, SSR i cache.
-60. Dzien 60: Pinia w Nuxt: plugin, hydratacja i roznice wzgledem SPA.
-61. Dzien 61: Auth w Nuxt - roznice wzgledem SPA.
-62. Dzien 62: SEO i SSR: dlaczego Nuxt jest czesto wybierany do publicznych stron.
-63. Dzien 63: Decyzja projektowa: FlowBoard zostaje SPA, Nuxt traktujemy jako osobna kompetencje.
-64. Dzien 64: Porownanie debugowania Nuxt i Vue SPA.
-65. Dzien 65: Powtorka Vue: Composition API, Pinia, composables, router, typy.
+56. Dzien 56: Projekt endpointu sync dla changeloga.
+57. Dzien 57: `external_id`, `source`, `source_url`, `last_synced_at`.
+58. Dzien 58: Upsert changelog entry po `external_id`.
+59. Dzien 59: Prosty token API dla produktu.
+60. Dzien 60: Mailpit i powiadomienie po zmianie statusu requestu.
+61. Dzien 61: Powiadomienie po release do glosujacych.
+62. Dzien 62: Podstawowe analytics: requesty z najwieksza liczba glosow.
+63. Dzien 63: Analytics statusow requestow.
+64. Dzien 64: Analytics ostatnich aktywnosci.
+65. Dzien 65: Review sync API, maili i analytics.
 
 ### Dni 66-78: Testy i CI/CD
 
-66. Dzien 66: Piramida testow: unit, feature, integration, e2e - co testujemy w tym projekcie.
-67. Dzien 67: PHPUnit dla logiki domenowej i prostych helperow.
-68. Dzien 68: Testy feature dla workspace'ow.
-69. Dzien 69: Testy feature dla projektow i relacji z workspace.
-70. Dzien 70: Testy feature dla zadan, filtrow i walidacji.
-71. Dzien 71: Testy autoryzacji i policies.
-72. Dzien 72: Laravel factories i seedery pod testy.
-73. Dzien 73: `vue-tsc` jako test typow frontendu.
-74. Dzien 74: `npm run build` jako test integracji Vue + Vite + Pinia.
-75. Dzien 75: Laravel Pint i podstawy formatowania w pipeline.
-76. Dzien 76: GitHub Actions: Composer, Laravel tests, npm ci, type-check i build.
-77. Dzien 77: Debugowanie CI: cache, zmienne srodowiskowe, baza testowa, logi jobow.
-78. Dzien 78: Minimalna definicja gotowosci PR: testy, type-check, build, review.
+66. Dzien 66: Strategia testow: unit, feature, frontend type-check, build.
+67. Dzien 67: Testy organizacji i produktow.
+68. Dzien 68: Testy requestow i walidacji.
+69. Dzien 69: Testy glosowania i unikalnosci glosu.
+70. Dzien 70: Testy komentarzy.
+71. Dzien 71: Testy roadmapy.
+72. Dzien 72: Testy changeloga i linkowania z requestami.
+73. Dzien 73: Testy sync API z `external_id`.
+74. Dzien 74: `vue-tsc` i naprawa bledow typow.
+75. Dzien 75: `npm run build` i naprawa bledow bundla.
+76. Dzien 76: Laravel Pint i standard formatowania.
+77. Dzien 77: GitHub Actions: Composer, PostgreSQL service, Laravel tests, npm ci, type-check, build.
+78. Dzien 78: Debugowanie CI i definicja gotowosci PR.
 
-### Dni 79-90: Dopracowanie, Debugowanie, Final
+### Dni 79-90: Debugowanie, Refactor, Final
 
 79. Dzien 79: Lista znanych bugow i priorytety napraw.
 80. Dzien 80: Debugowanie backendu: logi, stack trace, tinker, query log.
-81. Dzien 81: Debugowanie frontendu: Vue Devtools, Pinia Devtools, Network tab, source maps.
-82. Dzien 82: Problem N+1 w Eloquent i jak go wykryc.
-83. Dzien 83: Optymalizacja endpointow list: eager loading, paginacja, indeksy.
-84. Dzien 84: Refactor kontrolerow i requestow bez zmiany zachowania.
-85. Dzien 85: Refactor komponentow Vue, store'ow Pinia i composables.
-86. Dzien 86: Obsluga edge case'ow: puste listy, brak uprawnien, bledy sieci, timeout.
-87. Dzien 87: Przygotowanie demo danych i scenariusza prezentacji.
-88. Dzien 88: Przejscie calego flow: workspace -> projekt -> lista -> zadanie -> komentarze -> kanban.
-89. Dzien 89: Finalne CI, testy, build i porzadki w dokumentacji.
-90. Dzien 90: Podsumowanie: czego sie nauczyles, co wymaga powtorki, plan kolejnych 30 dni.
+81. Dzien 81: Debugowanie frontendu: Vue Devtools, Pinia Devtools, Network tab.
+82. Dzien 82: Problem N+1 w Eloquent i eager loading.
+83. Dzien 83: Indeksy w PostgreSQL pod requesty, glosy i sync.
+84. Dzien 84: Refactor kontrolerow, requestow i resources.
+85. Dzien 85: Refactor komponentow PrimeVue i composables.
+86. Dzien 86: Edge case'y: puste listy, bledy sieci, brak uprawnien, duplikat glosu.
+87. Dzien 87: Przygotowanie danych demo.
+88. Dzien 88: Przejscie calego flow: request -> glos -> roadmap -> changelog -> released -> mail.
+89. Dzien 89: Finalne testy, type-check, build i dokumentacja.
+90. Dzien 90: Podsumowanie, fiszki zbiorcze i plan kolejnych 30 dni.
 
 ## Minimalny Zakres CI/CD
 
 Pipeline powinien docelowo sprawdzac:
 
-- Instalacje zaleznosci PHP przez Composer.
-- Instalacje zaleznosci JS przez npm.
-- Migracje na bazie testowej.
-- `php artisan test`.
-- `./vendor/bin/pint --test`.
-- `npm run type-check`.
+- instalacje zaleznosci PHP przez Composer,
+- instalacje zaleznosci JS przez npm,
+- PostgreSQL jako service w GitHub Actions,
+- migracje na bazie testowej,
+- `php artisan test`,
+- `./vendor/bin/pint --test`,
+- `npm run type-check`,
 - `npm run build`.
 
 ## Fiszka Dnia
 
 Na koniec kazdego dnia dopisujemy do `doc/fiszki.md`:
 
-```md
-## Dzien X - temat
-
-### Pojecia
-- ...
-
-### Pytania i odpowiedzi
-Q: ...
-A: ...
-
-### Debugowanie
-- Blad:
-- Przyczyna:
-- Rozwiazanie:
-
-### Do powtorki
-- ...
-```

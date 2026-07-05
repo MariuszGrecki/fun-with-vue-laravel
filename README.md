@@ -1,29 +1,42 @@
-# FlowBoard
+# Voter
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12">
   <img src="https://img.shields.io/badge/Vue-3-42B883?style=for-the-badge&logo=vuedotjs&logoColor=white" alt="Vue 3">
   <img src="https://img.shields.io/badge/Pinia-state-FFD859?style=for-the-badge&logo=vuedotjs&logoColor=black" alt="Pinia">
-  <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Compose">
+  <img src="https://img.shields.io/badge/PrimeVue-Aura-6366F1?style=for-the-badge" alt="PrimeVue Aura">
+  <img src="https://img.shields.io/badge/PostgreSQL-17-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL 17">
 </p>
 
-FlowBoard to aplikacja do zarzadzania praca w zespolach, inspirowana narzedziami typu ClickUp. Laczy workspace'y, projekty, listy zadan, zadania, subtaski, komentarze, priorytety, terminy, tagi i rozne widoki pracy w jednym panelu operacyjnym.
+Voter to aplikacja SaaS do zbierania feedbacku od uzytkownikow, glosowania na funkcje, prowadzenia roadmapy, publikowania changeloga i informowania uzytkownikow, gdy ich feedback zostal wdrozony.
 
-Aplikacja ma wspierac codzienna prace nad projektami: planowanie zadan, przypisywanie osob, sledzenie postepu, przelaczanie sie miedzy widokiem listy, tablicy i kalendarza, filtrowanie zadan oraz przeglad aktywnosci zespolu.
+Główna idea produktu:
 
-## Zakres Produktu
+**feedback -> glosy -> decyzja -> roadmapa -> wdrozenie -> changelog -> powiadomienie uzytkownika**
 
-- Workspace'y z czlonkami i rolami.
-- Projekty pogrupowane w workspace'ach.
-- Listy zadan wewnatrz projektow.
-- Zadania ze statusem, priorytetem, przypisana osoba, terminem, opisem i tagami.
-- Subtaski, komentarze i historia aktywnosci.
-- Widoki: lista, tablica kanban i kalendarz.
-- Filtrowanie, sortowanie i paginacja.
-- Logowanie, autoryzacja i uprawnienia na poziomie workspace'a.
-- Dashboard z podsumowaniem pracy zespolu i projektow.
-- Backend API przygotowany pod testy i przyszle integracje.
+Voter nie ma byc tylko tablica do glosowania. Ma pomagac firmom zamykac petle feedbacku: pokazac uzytkownikom, ze ich glos realnie wplywa na rozwoj produktu.
+
+## MVP
+
+W 90 godzinach celujemy w praktyczne MVP, a nie pelna wersje z calego `doc/idea.md`.
+
+Zakres MVP:
+
+- Organizacje i produkty.
+- Publiczny feedback board dla produktu.
+- Dodawanie feature requestow.
+- Glosowanie na requesty.
+- Komentarze pod requestami.
+- Statusy requestow: `Open`, `Under Review`, `Planned`, `In Progress`, `Released`, `Declined`.
+- Panel admina do zarzadzania requestami.
+- Roadmapa: `Now`, `Next`, `Later`, `Done`.
+- Changelog / historia aktualizacji.
+- Powiazanie changelog entry z requestem.
+- Podstawowe powiadomienia mailowe przez Mailpit.
+- API do synchronizacji changeloga z aplikacji klienta przez `external_id`.
+- Podstawowe analytics: najwiecej glosow, statusy, ostatnie requesty.
+
+Poza MVP zostaja: pelne AI, widgety embedowane jako osobny bundle, Evidence Score, billing, custom domain, integracje i zaawansowane role.
 
 ## Technologie
 
@@ -31,37 +44,37 @@ Aplikacja ma wspierac codzienna prace nad projektami: planowanie zadan, przypisy
 | --- | --- |
 | Backend | Laravel 12, PHP, Eloquent ORM, Form Requests, Policies |
 | Frontend | Vue 3, Composition API, TypeScript, Vite |
+| UI | PrimeVue, theme Aura, PrimeIcons |
 | Stan frontendu | Pinia, composables, typowane klienty API |
-| Baza danych | MySQL 8.4 |
+| Baza danych | PostgreSQL 17 |
 | Cache / kolejki | Redis |
 | Lokalna poczta | Mailpit |
 | Srodowisko | Docker Compose, Laravel Sail |
 | Jakosc | PHPUnit, Laravel Pint, vue-tsc, Vite build |
 | CI/CD | GitHub Actions dla testow backendu, type-checku i buildu frontendu |
 
-## Architektura Stanu Frontendu
+## Architektura Frontendu
 
-Pinia jest podstawowym elementem architektury frontendu. FlowBoard ma stan, ktory musi byc wspoldzielony miedzy wieloma ekranami: aktualny workspace, wybrany projekt, aktywny widok, filtry, kontekst zalogowanego uzytkownika i metadane zadan.
+Pinia jest czescia podstawowej architektury frontendu. Voter bedzie mial stan wspoldzielony miedzy publicznym boardem, panelem admina, roadmapa i changelogiem.
 
 Zasady odpowiedzialnosci za stan:
 
-- Uzywamy Pinii dla stanu wspoldzielonego: aktualny workspace, sesja uzytkownika, aktywny widok, filtry zadan, wybrany projekt, statusy i tagi.
-- Uzywamy stanu komponentu dla lokalnych szczegolow UI: pola formularza, otwarte dropdowny, tymczasowe wartosci inputow i widocznosc modali.
-- Uzywamy composables dla wspolnej logiki: requesty API, mapowanie odpowiedzi, logika filtrow i helpery formularzy.
-- Laravel API jest zrodlem prawdy dla danych trwalych, relacji, walidacji i uprawnien.
+- Pinia: aktualny produkt, zalogowany admin, aktywny widok, filtry requestow, statusy, kategorie i kontekst boarda.
+- Local state komponentu: formularze, otwarte dialogi, tymczasowe inputy, stan pojedynczego dropdowna.
+- Composables: requesty API, mapowanie odpowiedzi, logika filtrow, helpery formularzy i obsluga bledow.
+- Laravel API: zrodlo prawdy dla danych trwalych, relacji, walidacji i uprawnien.
 
-Pierwszy store Pinia znajduje sie w `resources/js/stores/workspace.ts`. Definiuje aktywny workspace i wybrany widok pracy.
+PrimeVue z theme Aura odpowiada za warstwe UI. Dzieki temu skupiamy sie na logice, strukturze danych i debugowaniu, a nie na pisaniu calego systemu komponentow od zera.
 
-## Uruchomienie Lokalne
+## PostgreSQL
 
-Projekt dziala na Docker Compose przez Laravel Sail.
+Projekt uzywa PostgreSQL zamiast MySQL, bo Voter ma charakter aplikacji SaaS z relacyjnymi danymi: organizacje, produkty, requesty, glosy, komentarze, roadmapa, changelog i synchronizacja przez `external_id`.
 
-```bash
-cp .env.example .env
-./vendor/bin/sail up -d
-./vendor/bin/sail artisan migrate
-./vendor/bin/sail npm run dev
-```
+PostgreSQL dobrze pasuje do tego typu domeny i zostawia miejsce na pozniejsze rozszerzenia, np. indeksy pod wyszukiwanie, agregacje analytics albo bardziej zaawansowane typy danych.
+
+## Docker Compose
+
+Plik nazywa sie `compose.yaml`, poniewaz Docker Compose V2 traktuje te nazwe jako aktualna, preferowana konwencje. Starsza nazwa `docker-compose.yml` nadal dziala, ale nie jest konieczna.
 
 Domyslne lokalne uslugi:
 
@@ -69,9 +82,18 @@ Domyslne lokalne uslugi:
 | --- | --- |
 | Aplikacja | `http://localhost:8088` |
 | Vite dev server | `http://localhost:5173` |
-| MySQL | `localhost:3307` |
+| PostgreSQL | `localhost:5433` |
 | Redis | `localhost:6380` |
 | Mailpit UI | `http://localhost:8026` |
+
+## Uruchomienie Lokalne
+
+```bash
+cp .env.example .env
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail npm run dev
+```
 
 ## Przydatne Komendy
 
@@ -82,16 +104,6 @@ Domyslne lokalne uslugi:
 ./vendor/bin/sail pint
 ```
 
-## Roadmapa
-
-FlowBoard bedzie rozwijany iteracyjnie:
-
-1. Rdzen API w Laravelu i model bazy danych.
-2. Ekrany Vue 3 z typami TypeScript.
-3. Store'y Pinia dla workspace'a, auth, kontekstu projektu i filtrow zadan.
-4. Widoki zadan: lista, tablica i kalendarz.
-5. Logowanie, role i policies.
-6. Testy, debugowanie i CI/CD.
-7. Spike Nuxt, zeby porownac architekture Vue SPA z frameworkiem full-stack opartym o Vue.
+## Roadmapa Nauki
 
 Szczegolowy plan nauki i implementacji znajduje sie w `doc/plan-nauki-90-dni.md`.
