@@ -62,7 +62,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 
 - [x] Dzien 1: Architektura Votera i omowienie MVP wzgledem pelnego `idea.md`.
 - [x] Dzien 2: Docker Compose, `compose.yaml`, PostgreSQL, Redis i Mailpit.
-- [ ] Dzien 3: Struktura Laravel: routes, controllers, models, migrations, requests, resources, tests.
+- [x] Dzien 3: Struktura Laravel: routes, controllers, models, migrations, requests, resources, tests.
 - [ ] Dzien 4: Vue 3 + TypeScript: `script setup`, komponenty, props, typy.
 - [ ] Dzien 5: PrimeVue + Aura: Button, Card, DataTable, Dialog, Tag, Toast.
 - [ ] Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
