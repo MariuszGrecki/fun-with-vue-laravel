@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import Button from 'primevue/button';
-import Card from 'primevue/card';
-import Tag from 'primevue/tag';
+import ProductSummaryCard from './components/ProductSummaryCard.vue';
+import ProductViewTabs from './components/ProductViewTabs.vue';
+import StackList, { type StackItem } from './components/StackList.vue';
 import { useProductStore, type VoterView } from './stores/product';
-
-type StackItem = {
-    label: string;
-    purpose: string;
-};
 
 const productStore = useProductStore();
 const { activeView, currentProduct, productLabel } = storeToRefs(productStore);
@@ -41,45 +36,17 @@ const stack: StackItem[] = [
 
 <template>
     <main>
-        <Card>
-            <template #title>Voter</template>
-            <template #subtitle>{{ productLabel }}</template>
-            <template #content>
-                <p>
-                    Collect feedback, prioritize feature requests, publish roadmap updates
-                    and close the loop with users.
-                </p>
+        <ProductSummaryCard
+            :product="currentProduct"
+            :product-label="productLabel"
+        />
 
-                <div>
-                    <Tag severity="info" :value="`${currentProduct.openRequestCount} open`" />
-                    <Tag severity="warn" :value="`${currentProduct.plannedRequestCount} planned`" />
-                    <Tag severity="success" :value="`${currentProduct.releasedRequestCount} released`" />
-                </div>
-            </template>
-        </Card>
+        <ProductViewTabs 
+            :active-view="activeView"
+            :views="views"
+            @change-view="productStore.setActiveView"
+        />
 
-        <section>
-            <h2>Product views</h2>
-            <div>
-                <Button
-                    v-for="view in views"
-                    :key="view"
-                    type="button"
-                    :label="view"
-                    :severity="activeView === view ? 'primary' : 'secondary'"
-                    @click="productStore.setActiveView(view)"
-                />
-            </div>
-        </section>
-
-        <section>
-            <h2>Stack</h2>
-            <ul>
-                <li v-for="item in stack" :key="item.label">
-                    <strong>{{ item.label }}</strong>
-                    <span>{{ item.purpose }}</span>
-                </li>
-            </ul>
-        </section>
+        <StackList :stack="stack"/>  
     </main>
 </template>
