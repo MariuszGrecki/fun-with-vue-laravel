@@ -1,5 +1,3 @@
-
-```
 Na podstawie naszej kowersacji i plikóœ które przerabialiśmy, stwórz 1 pytanie do aplikacji do nauki. Pytania mogą być typu MCQ (wielokrotny wybór), OPEN (otwarte) lub DESCRIPTIVE (opisowe). Pytania nie powinny się odnosić konkretnie do programu który piszemy. Pytania powinny być bardziej "frameworkowe".
 
 Format odpowiedzi - zwróć TYLKO JSON (bez dodatkowego tekstu) w następującym formacie:

@@ -64,7 +64,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 2: Docker Compose, `compose.yaml`, PostgreSQL, Redis i Mailpit.
 - [x] Dzien 3: Struktura Laravel: routes, controllers, models, migrations, requests, resources, tests.
 - [x] Dzien 4: Vue 3 + TypeScript: `script setup`, komponenty, props, typy.
-- [ ] Dzien 5: PrimeVue + Aura: Button, Card, DataTable, Dialog, Tag, Toast.
+- [x] Dzien 5: PrimeVue + Aura: Button, Card, DataTable, Dialog, Tag, Toast.
 - [ ] Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
 - [ ] Dzien 7: Pierwszy store `product`: aktywny produkt i aktywny widok.
 - [ ] Dzien 8: Pierwszy endpoint API `GET /api/health` i test feature.
@@ -185,4 +185,3 @@ Pipeline powinien docelowo sprawdzac:
 ## Fiszka Dnia
 
 Na koniec kazdego dnia dopisujemy do `doc/fiszki.md`:
-

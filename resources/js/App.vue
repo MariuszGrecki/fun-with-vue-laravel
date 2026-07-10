@@ -3,7 +3,9 @@ import { storeToRefs } from 'pinia';
 import ProductSummaryCard from './components/ProductSummaryCard.vue';
 import ProductViewTabs from './components/ProductViewTabs.vue';
 import StackList, { type StackItem } from './components/StackList.vue';
+import FeatureRequestTable from './components/FeatureRequestTable.vue';
 import { useProductStore, type VoterView } from './stores/product';
+import Toast from 'primevue/toast';
 
 const productStore = useProductStore();
 const { activeView, currentProduct, productLabel } = storeToRefs(productStore);
@@ -35,6 +37,7 @@ const stack: StackItem[] = [
 </script>
 
 <template>
+    <Toast />
     <main>
         <ProductSummaryCard
             :product="currentProduct"
@@ -48,5 +51,7 @@ const stack: StackItem[] = [
         />
 
         <StackList :stack="stack"/>  
+
+        <FeatureRequestTable/>
     </main>
 </template>
