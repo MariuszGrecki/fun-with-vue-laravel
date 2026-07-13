@@ -107,3 +107,5 @@ docker compose exec laravel.test ./vendor/bin/pint
 ## Roadmapa Nauki
 
 Szczegolowy plan nauki i implementacji znajduje sie w `doc/plan-nauki-90-dni.md`.
+
+docker compose exec laravel.test npm run dev -- --force    

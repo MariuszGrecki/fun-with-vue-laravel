@@ -49,3 +49,23 @@ WAŻNE - Formatowanie tekstu:
     "explanation": "Aby użyć tego podejścia:\n1) Zainstaluj zależności\n2) Skonfiguruj plik\n3) Uruchom komendę\n\nPrzykład kodu:\n```java\npublic class Example {\n    // kod\n}\n```"
   }
 ```
+
+## Dzien 6 - Pinia i storeToRefs
+
+```json
+[
+  {
+    "type": "MCQ",
+    "text": "Dlaczego state i getters ze store'a Pinia często wyciągamy przez storeToRefs, a actions wywołujemy bezpośrednio na instancji store'a?",
+    "explanation": "Zwykłe destrukturyzowanie state lub getters może zerwać ich reaktywność. storeToRefs zamienia reaktywne dane i gettery na refy. Actions są metodami, a nie reaktywnymi wartościami, dlatego wywołujemy je bezpośrednio, np. featureRequestStore.addRequest(title).",
+    "choices": [
+      { "letter": "A", "text": "storeToRefs zachowuje reaktywność state i getters, natomiast actions pozostają metodami store'a.", "isCorrect": true },
+      { "letter": "B", "text": "storeToRefs zapisuje state w localStorage i automatycznie wysyła go do API.", "isCorrect": false },
+      { "letter": "C", "text": "Każdą action trzeba najpierw zamienić na ref, inaczej nie można jej wywołać.", "isCorrect": false },
+      { "letter": "D", "text": "storeToRefs służy wyłącznie do komponentów PrimeVue.", "isCorrect": false }
+    ],
+    "bookName": null,
+    "bookAuthor": null
+  }
+]
+```

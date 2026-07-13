@@ -8,53 +8,30 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import { useToast } from 'primevue/usetoast';
+import { storeToRefs } from 'pinia';
+import {
+    useFeatureRequestStore,
+    type FeatureRequest
+} from '../stores/featureRequests';
+
+const featureRequestStore = useFeatureRequestStore();
+const { requests, requestCount } = storeToRefs(featureRequestStore);
+
 
 const toast = useToast();
 
-type FeatureRequest = {
-    id: number;
-    title: string;
-    status: 'open' | 'planned' | 'released';
-    votes: number;
-}
-
-const requests = ref<FeatureRequest[]>([
-    {
-        id: 1,
-        title: 'Eksport raportu do CSV',
-        status: 'open',
-        votes: 24,
-    },
-    {
-        id: 2,
-        title: 'Tryb ciemny',
-        status: 'planned',
-        votes: 17,
-    },
-    {
-        id: 3,
-        title: 'Powiadomienia email',
-        status: 'released',
-        votes: 12,
-    },
-]);
 
 const dialogVisible = ref(false);
 const newRequestTitle = ref('');
 
-function addRequest(): void {
+function submitRequest(): void {
     const title = newRequestTitle.value.trim();
 
     if (!title) {
         return;
     }
 
-    requests.value.push({
-        id: Date.now(),
-        title,
-        status: 'open',
-        votes: 0,
-    });
+    featureRequestStore.addRequest(title);
 
     newRequestTitle.value = '';
     dialogVisible.value = false;
@@ -83,7 +60,7 @@ function getStatusSeverity(status: FeatureRequest['status']): TagSeverity {
 
 <template>
     <section>
-        <h2>Feature requests</h2>
+        <h2>Feature requests ({{ requestCount }})</h2>
 
         <DataTable :value="requests">
             <Column field="title" header="Zgłoszenie" />
@@ -122,7 +99,7 @@ function getStatusSeverity(status: FeatureRequest['status']): TagSeverity {
                 <Button
                     label="Dodaj"
                     icon="pi pi-check"
-                    @click="addRequest"
+                    @click="submitRequest"
                 />
             </template>
         </Dialog>

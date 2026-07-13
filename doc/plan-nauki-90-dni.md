@@ -65,7 +65,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 3: Struktura Laravel: routes, controllers, models, migrations, requests, resources, tests.
 - [x] Dzien 4: Vue 3 + TypeScript: `script setup`, komponenty, props, typy.
 - [x] Dzien 5: PrimeVue + Aura: Button, Card, DataTable, Dialog, Tag, Toast.
-- [ ] Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
+- [x] Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
 - [ ] Dzien 7: Pierwszy store `product`: aktywny produkt i aktywny widok.
 - [ ] Dzien 8: Pierwszy endpoint API `GET /api/health` i test feature.
 - [ ] Dzien 9: Pierwszy request z Vue do API przez typed API client.
