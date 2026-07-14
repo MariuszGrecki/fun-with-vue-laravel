@@ -69,3 +69,17 @@ WAŻNE - Formatowanie tekstu:
   }
 ]
 ```
+
+## Dzien 7 - Wspolny stan i zdarzenia komponentow
+
+```json
+[
+  {
+    "type": "OPEN",
+    "text": "Jak przebiega przeplyw danych, gdy dziecko emituje zdarzenie zmiany widoku, a stan widoku jest przechowywany w store Pinia?",
+    "modelAnswer": "Komponent potomny emituje zdarzenie wraz z nowa wartoscia. Komponent rodzic nasluchuje tego zdarzenia i wywoluje action store'a. Action aktualizuje stan w Pinia, a komponenty korzystajace z tego stanu reaguja automatycznie, na przyklad przez v-if wyswietlajacy odpowiedni widok.",
+    "bookName": null,
+    "bookAuthor": null
+  }
+]
+```
