@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { onMounted, ref } from 'vue';
 import ProductSummaryCard from './components/ProductSummaryCard.vue';
 import ProductViewTabs from './components/ProductViewTabs.vue';
 import StackList, { type StackItem } from './components/StackList.vue';
 import FeatureRequestTable from './components/FeatureRequestTable.vue';
 import { useProductStore, type VoterView } from './stores/product';
+import { HealthResponse, getHealth } from './api/health.js';
 import Toast from 'primevue/toast';
 
 const productStore = useProductStore();
 const { activeView, currentProduct, productLabel } = storeToRefs(productStore);
+
+const health = ref<HealthResponse | null>(null);
+
+onMounted(async () => {
+    health.value = await getHealth();
+})
 
 const views: VoterView[] = ['feedback', 'roadmap', 'changelog'];
 
@@ -62,6 +70,18 @@ const stack: StackItem[] = [
         <section v-else>
             <h2>Changelog</h2>    
             <p>Tu póxniej pokażemy opublikowane aktualziacje produktu.</p>
+        </section>
+
+        <section>
+            <h2>Status API</h2>
+
+            <p v-if="health">
+                API działa: {{  health.app }} {{ health.status }}
+            </p>
+
+            <p v-else>
+                łączenie z API..
+            </p>
         </section>
     </main>
 </template>

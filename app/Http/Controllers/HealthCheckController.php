@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 class HealthCheckController extends Controller
 {
-    public function check() : JSONResponse
+    public function check() : JsonResponse
     {
         return response()->json([
             'status' => 'ok',
