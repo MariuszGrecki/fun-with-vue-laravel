@@ -68,8 +68,8 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 6: Pinia: `defineStore`, state, getters, actions, `storeToRefs`.
 - [x] Dzien 7: Pierwszy store `product`: aktywny produkt i aktywny widok.
 - [x] Dzien 8: Pierwszy endpoint API `GET /api/health` i test feature.
-- [ ] Dzien 9: Pierwszy request z Vue do API przez typed API client.
-- [ ] Dzien 10: Review fundamentow: kiedy Pinia, kiedy local state, kiedy composable.
+- [x] Dzien 9: Pierwszy request z Vue do API przez typed API client.
+- [x] Dzien 10: Review fundamentow: kiedy Pinia, kiedy local state, kiedy composable.
 
 ### Dni 11-25: Backend Feedback Boarda
 
