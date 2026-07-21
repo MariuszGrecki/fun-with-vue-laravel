@@ -102,6 +102,8 @@ docker compose exec laravel.test php artisan test
 docker compose exec laravel.test npm run type-check
 docker compose exec laravel.test npm run build
 docker compose exec laravel.test ./vendor/bin/pint
+
+docker compose exec <nazwa-usługi> php artisan <komenda>
 ```
 
 ## Roadmapa Nauki
