@@ -74,7 +74,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 ### Dni 11-25: Backend Feedback Boarda
 
 - [x] Dzien 11: Model `Organization`, migracja, factory, seeder.
-- [ ] Dzien 12: Model `Product`, relacja z organizacja.
+- [x] Dzien 12: Model `Product`, relacja z organizacja.
 - [ ] Dzien 13: Publiczny identyfikator produktu: slug albo public key.
 - [ ] Dzien 14: Model `FeatureRequest`: tytul, opis, status, author, product.
 - [ ] Dzien 15: Statusy requestow: enum i walidacja.
