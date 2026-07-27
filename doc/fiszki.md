@@ -50,13 +50,4 @@ WAŻNE - Formatowanie tekstu:
   }
 ```
 
-[
-  {
-    "type": "OPEN",
-    "text": "W relacji Eloquent jeden-do-wielu, gdzie umieszcza się klucz obcy i jak nazywają się metody relacji po obu stronach?",
-    "modelAnswer": "Klucz obcy umieszcza się w tabeli modelu, który należy do drugiego modelu. Model nadrzędny definiuje relację hasMany(), a model podrzędny relację belongsTo().",
-    "bookName": null,
-    "bookAuthor": null
-  }
-]
 

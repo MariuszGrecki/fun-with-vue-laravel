@@ -75,7 +75,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 
 - [x] Dzien 11: Model `Organization`, migracja, factory, seeder.
 - [x] Dzien 12: Model `Product`, relacja z organizacja.
-- [ ] Dzien 13: Publiczny identyfikator produktu: slug albo public key.
+- [x] Dzien 13: Publiczny identyfikator produktu: slug albo public key.
 - [ ] Dzien 14: Model `FeatureRequest`: tytul, opis, status, author, product.
 - [ ] Dzien 15: Statusy requestow: enum i walidacja.
 - [ ] Dzien 16: `FeatureRequestController@index` z filtrowaniem i sortowaniem.

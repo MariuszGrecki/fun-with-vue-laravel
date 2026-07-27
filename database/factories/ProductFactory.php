@@ -18,9 +18,12 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->words(3, true);
+
         return [
             'organization_id' => Organization::factory(),
-            'name' => fake()->words(3, true),
+            'name' => $name,
+            'slug' => str($name)->slug(),
         ];
     }
 }
