@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Organization;
 use App\Models\Product;
+use App\Models\FeatureRequest;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\QueryException;
 use Tests\TestCase;
@@ -47,5 +49,20 @@ class ProductTest extends TestCase
         Product::factory()->create([
             'slug' => 'voter',
         ]);
+    }
+
+    public function test_feature_request_belongs_to_product_and_author(): void
+    {
+        $product = Product::factory()->create();
+        $author = User::factory()->create();
+
+        $featureRequest = FeatureRequest::factory()
+            ->for($product)
+            ->for($author, 'author')
+            ->create();
+
+        $this->assertTrue($featureRequest->product->is($product));
+        $this->assertTrue($featureRequest->author->is($author));
+        $this->assertTrue($product->featureRequests->contains($featureRequest));
     }
 }
