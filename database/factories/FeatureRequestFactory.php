@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Product;
+use App\Enums\FeatureRequestStatus;
 
 /**
  * @extends Factory<FeatureRequest>
@@ -25,7 +26,7 @@ class FeatureRequestFactory extends Factory
             'author_id' => User::factory(),
             'title' => Str::random(10),
             'description' => Str::random(10),
-            'status' => 'open',
+            'status' => FeatureRequestStatus::Open,
         ];
     }
 }
