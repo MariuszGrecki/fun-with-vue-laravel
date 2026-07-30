@@ -106,6 +106,7 @@ docker compose exec laravel.test ./vendor/bin/pint
 docker compose exec <nazwa-usługi> php artisan <komenda>
 
 ./vendor/bin/sail artisan make:model Product -mf
+./vendor/bin/sail artisan make:controller FeatureRequestController --resource   
 ```
 
 ## Roadmapa Nauki
