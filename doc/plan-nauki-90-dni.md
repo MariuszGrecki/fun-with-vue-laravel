@@ -79,8 +79,8 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 14: Model `FeatureRequest`: tytul, opis, status, author, product.
 - [x] Dzien 15: Statusy requestow: enum i walidacja.
 - [x] Dzien 16: `FeatureRequestController@index` z filtrowaniem i sortowaniem.
-- [ ] Dzien 17: `FeatureRequestController@store` z Form Request.
-- [ ] Dzien 18: Glosowanie: model `Vote`, unikalnosc glosu per user/email/request.
+- [x] Dzien 17: `FeatureRequestController@store` z Form Request.
+- [] Dzien 18: Glosowanie: model `Vote`, unikalnosc glosu per user/email/request.
 - [ ] Dzien 19: Komentarze: model `Comment`, relacje, walidacja.
 - [ ] Dzien 20: API Resources dla requestow, glosow i komentarzy.
 - [ ] Dzien 21: Wyszukiwanie requestow po tytule i opisie.

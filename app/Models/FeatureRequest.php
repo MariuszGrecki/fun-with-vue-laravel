@@ -12,6 +12,11 @@ class FeatureRequest extends Model
     /** @use HasFactory<\Database\Factories\FeatureRequestFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
     protected function casts(): array
     {
         return [

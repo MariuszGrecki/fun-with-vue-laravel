@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\FeatureRequestStatus;
+use App\Http\Requests\StoreFeatureRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -47,15 +48,17 @@ class FeatureRequestController extends Controller
      */
     public function create()
     {
-        //
+    //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFeatureRequest $request, Product $product)
     {
-        //
+        $featureRequest = $product->featureRequests()->create($request->validated());
+
+        return response()->json($featureRequest, 201);  
     }
 
     /**
