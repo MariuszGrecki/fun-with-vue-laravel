@@ -51,22 +51,22 @@ class VoteTest extends TestCase
             ]);
     }
 
-public function test_user_can_vote_for_different_feature_requests(): void
-{
-    $user = User::factory()->create();
-    $firstFeatureRequest = FeatureRequest::factory()->create();
-    $secondFeatureRequest = FeatureRequest::factory()->create();
+    public function test_user_can_vote_for_different_feature_requests(): void
+    {
+        $user = User::factory()->create();
+        $firstFeatureRequest = FeatureRequest::factory()->create();
+        $secondFeatureRequest = FeatureRequest::factory()->create();
 
-    Vote::factory()->create([
-        'feature_request_id' => $firstFeatureRequest->id,
-        'user_id' => $user->id,
-    ]);
+        Vote::factory()->create([
+            'feature_request_id' => $firstFeatureRequest->id,
+            'user_id' => $user->id,
+        ]);
 
-    Vote::factory()->create([
-        'feature_request_id' => $secondFeatureRequest->id,
-        'user_id' => $user->id,
-    ]);
+        Vote::factory()->create([
+            'feature_request_id' => $secondFeatureRequest->id,
+            'user_id' => $user->id,
+        ]);
 
-    $this->assertDatabaseCount('votes', 2);
-}
+        $this->assertDatabaseCount('votes', 2);
+    }
 }
