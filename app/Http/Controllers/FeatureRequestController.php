@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\FeatureRequestStatus;
 use App\Http\Requests\StoreFeatureRequest;
+use App\Http\Resources\FeatureRequestResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -40,7 +41,7 @@ class FeatureRequestController extends Controller
             $query->orderBy($sortMap[$column], $direction);
         }
 
-        return response()->json($query->get());
+        return FeatureRequestResource::collection($query->get());
     }
 
     /**
@@ -58,7 +59,7 @@ class FeatureRequestController extends Controller
     {
         $featureRequest = $product->featureRequests()->create($request->validated());
 
-        return response()->json($featureRequest, 201);  
+        return FeatureRequestResource::make($featureRequest)->response()->setStatusCode(201);
     }
 
     /**
