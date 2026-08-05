@@ -27,6 +27,10 @@ class FeatureRequestController extends Controller
             }
         });
 
+        $query->when($request->query('search'), function ($query, $search) {
+            $query->where(fn ($q) => $q->where('title', 'ILIKE', "%{$search}%")->orWhere('description', 'ILIKE', "%{$search}%"));
+        });
+
         $sortMap = [
             'title' => 'feature_requests.title',
             'created_at'=> 'feature_requests.created_at',
