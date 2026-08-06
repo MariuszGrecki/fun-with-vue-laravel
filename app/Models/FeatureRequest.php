@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Enums\FeatureRequestStatus;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class FeatureRequest extends Model
 {
@@ -43,5 +44,10 @@ class FeatureRequest extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

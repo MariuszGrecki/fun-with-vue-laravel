@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FeatureRequestResource extends JsonResource
+class TagResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,8 @@ class FeatureRequestResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'status' => $this->status,
-            'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'created_at' => $this->created_at,
+            'name' => $this->name,
+            'color' => $this->color,
         ];
     }
 }

@@ -24,7 +24,9 @@ class StoreFeatureRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'min:1']
+            'description' => ['required', 'string', 'min:1'],
+            'tag_ids' => ['sometimes', 'array'],
+            'tag_ids.*' => ['integer', 'exists:tags,id'],
         ];
     }
 }

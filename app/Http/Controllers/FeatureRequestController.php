@@ -17,7 +17,8 @@ class FeatureRequestController extends Controller
     {
         $query = $product->featureRequests()
             ->leftJoin('users', 'users.id', '=', 'feature_requests.author_id')
-            ->select('feature_requests.*');
+            ->select('feature_requests.*')
+            ->with('tags');
 
         $query->when($request->query('status'), function ($query, $status) {
             $enum = FeatureRequestStatus::tryFrom($status);
@@ -29,6 +30,10 @@ class FeatureRequestController extends Controller
 
         $query->when($request->query('search'), function ($query, $search) {
             $query->where(fn ($q) => $q->where('title', 'ILIKE', "%{$search}%")->orWhere('description', 'ILIKE', "%{$search}%"));
+        });
+
+        $query->when($request->query('tag_id'), function ($query, $tagId) {
+            $query->whereHas('tags', fn ($q) => $q->where('tags.id', $tagId));
         });
 
         $sortMap = [
@@ -62,7 +67,9 @@ class FeatureRequestController extends Controller
     public function store(StoreFeatureRequest $request, Product $product)
     {
         $featureRequest = $product->featureRequests()->create($request->validated());
+        $featureRequest->tags()->sync($request->validated('tag_ids', []));
 
+        $featureRequest->load('tags');
         return FeatureRequestResource::make($featureRequest)->response()->setStatusCode(201);
     }
 
