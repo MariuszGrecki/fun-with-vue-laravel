@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enums\FeatureRequestStatus;
 use App\Http\Requests\StoreFeatureRequest;
+use App\Http\Requests\UpdateFeatureRequestStatusRequest;
 use App\Http\Resources\FeatureRequestResource;
+use App\Models\FeatureRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -95,6 +97,19 @@ class FeatureRequestController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateStatus(
+        UpdateFeatureRequestStatusRequest $request,
+        FeatureRequest $featureRequest,
+    ) {
+        $featureRequest->status = $request->validated('status');
+        $featureRequest->save();
+
+        return FeatureRequestResource::make($featureRequest);
     }
 
     /**

@@ -8,3 +8,5 @@ Route::get('/health', [HealthCheckController::class, 'check'])->name('health.che
 
 Route::get('/products/{product}/feature-requests', [FeatureRequestController::class, 'index']);
 Route::post('/products/{product}/feature-requests', [FeatureRequestController::class, 'store']);
+
+Route::patch('admin/feature-requests/{featureRequest}/status', [FeatureRequestController::class, 'updateStatus']);

@@ -85,7 +85,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 20: API Resources dla requestow, glosow i komentarzy.
 - [x] Dzien 21: Wyszukiwanie requestow po tytule i opisie.
 - [x] Dzien 22: Kategorie lub tagi w minimalnym zakresie.
-- [ ] Dzien 23: Admin endpointy do zmiany statusu requestu.
+- [x] Dzien 23: Admin endpointy do zmiany statusu requestu.
 - [ ] Dzien 24: Testy feature dla requestow, glosow i komentarzy.
 - [ ] Dzien 25: Review backendu feedback boarda.
 
