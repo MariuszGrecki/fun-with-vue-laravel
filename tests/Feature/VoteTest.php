@@ -69,4 +69,18 @@ class VoteTest extends TestCase
 
         $this->assertDatabaseCount('votes', 2);
     }
+
+    public function test_votes_are_deleted_when_their_feature_request_is_deleted(): void
+    {
+        $featureRequest = FeatureRequest::factory()->create();
+        $vote = Vote::factory()->create([
+            'feature_request_id' => $featureRequest->id,
+        ]);
+
+        $featureRequest->delete();
+
+        $this->assertDatabaseMissing('votes', [
+            'id' => $vote->id,
+        ]);
+    }
 }

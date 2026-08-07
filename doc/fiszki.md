@@ -51,5 +51,3 @@ WAŻNE - Formatowanie tekstu:
 ```
 
 
-
-
