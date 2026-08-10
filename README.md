@@ -80,11 +80,13 @@ Domyslne lokalne uslugi:
 
 | Usluga | URL / port |
 | --- | --- |
-| Aplikacja | `http://localhost:8088` |
-| Vite dev server | `http://localhost:5173` |
+| Aplikacja | `http://localhost:8033` |
+| Vite dev server / HMR | `http://localhost:5111` |
 | PostgreSQL | `localhost:5433` |
 | Redis | `localhost:6380` |
 | Mailpit UI | `http://localhost:8026` |
+
+docker compose exec laravel.test npm run dev
 
 ## Uruchomienie Lokalne
 
@@ -92,8 +94,11 @@ Domyslne lokalne uslugi:
 cp .env.example .env
 docker compose up -d
 docker compose exec laravel.test php artisan migrate
+docker compose exec laravel.test npm ci
 docker compose exec laravel.test npm run dev
 ```
+
+Aplikacje otwieramy pod `http://localhost:8033`. Proces Vite musi dzialac podczas pracy nad frontendem, ale port `5111` sluzy do dostarczania assetow i HMR, a nie jako adres aplikacji.
 
 ## Przydatne Komendy
 

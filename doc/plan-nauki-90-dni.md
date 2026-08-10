@@ -91,7 +91,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 
 ### Dni 26-40: Frontend Publiczny i Admin
 
-- [ ] Dzien 26: Routing frontendu: public board, request details, admin.
+- [x] Dzien 26: Routing frontendu: public board, request details, admin.
 - [ ] Dzien 27: Typy TypeScript dla `Product`, `FeatureRequest`, `Vote`, `Comment`.
 - [ ] Dzien 28: API client i obsluga bledow walidacji.
 - [ ] Dzien 29: Publiczny board w PrimeVue DataTable.
