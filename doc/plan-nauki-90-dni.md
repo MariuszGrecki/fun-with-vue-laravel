@@ -92,8 +92,8 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 ### Dni 26-40: Frontend Publiczny i Admin
 
 - [x] Dzien 26: Routing frontendu: public board, request details, admin.
-- [ ] Dzien 27: Typy TypeScript dla `Product`, `FeatureRequest`, `Vote`, `Comment`.
-- [ ] Dzien 28: API client i obsluga bledow walidacji.
+- [x] Dzien 27: Typy TypeScript dla `Product`, `FeatureRequest`, `Vote`, `Comment`.
+- [ ] Dzien 28: API client i obsluga bledow walidacji (uzupelnienie `ProductResource`, endpointu produktu i testu kontraktu).
 - [ ] Dzien 29: Publiczny board w PrimeVue DataTable.
 - [ ] Dzien 30: Formularz dodawania requestu w PrimeVue Dialog.
 - [ ] Dzien 31: Glosowanie z optimistic update i obsluga rollbacku.
@@ -148,11 +148,11 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [ ] Dzien 71: Testy roadmapy.
 - [ ] Dzien 72: Testy changeloga i linkowania z requestami.
 - [ ] Dzien 73: Testy sync API z `external_id`.
-- [ ] Dzien 74: `vue-tsc` i naprawa bledow typow.
-- [ ] Dzien 75: `npm run build` i naprawa bledow bundla.
-- [ ] Dzien 76: Laravel Pint i standard formatowania.
-- [ ] Dzien 77: GitHub Actions: Composer, PostgreSQL service, Laravel tests, npm ci, type-check, build.
-- [ ] Dzien 78: Debugowanie CI i definicja gotowosci PR.
+- [ ] Dzien 74: OpenAPI: opis kontraktu istniejacych endpointow, modeli odpowiedzi i enumow.
+- [ ] Dzien 75: Generowanie typow TypeScript z OpenAPI i podlaczenie ich do API clienta oraz store'ow.
+- [ ] Dzien 76: `vue-tsc`, `npm run build` i naprawa bledow typow oraz bundla.
+- [ ] Dzien 77: Laravel Pint oraz GitHub Actions: Composer, PostgreSQL service, Laravel tests, npm ci, type-check, build.
+- [ ] Dzien 78: Debugowanie CI, kontrola aktualnosci wygenerowanych typow i definicja gotowosci PR.
 
 ### Dni 79-90: Debugowanie, Refactor, Final
 
