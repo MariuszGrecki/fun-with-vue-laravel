@@ -38,3 +38,20 @@ export type Product = {
     name: string;
     slug: string;
 }
+
+export type ApiResponse<T> = {
+    data: T;
+};
+
+export type ValidationErrors = Record<string, string[]>;
+
+export type ValidationErrorResponse = {
+    message: string;
+    errors: ValidationErrors;
+};
+
+export type CreateFeatureRequestPayload = {
+    title: string;
+    description: string;
+    tag_ids?: number[];
+};

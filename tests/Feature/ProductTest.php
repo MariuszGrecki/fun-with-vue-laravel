@@ -65,4 +65,24 @@ class ProductTest extends TestCase
         $this->assertTrue($featureRequest->author->is($author));
         $this->assertTrue($product->featureRequests->contains($featureRequest));
     }
+
+    public function test_product_can_be_fetched_by_slug(): void
+    {
+        $product = Product::factory()->create([
+            'name' => 'Voter',
+            'slug' => 'voter',
+        ]);
+
+        $response = $this->getJson('/api/products/voter');
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'data' => [
+                    'id' => $product->id,
+                    'name' => 'Voter',
+                    'slug' => 'voter',
+                ],
+            ]);
+    }
 }
