@@ -20,7 +20,8 @@ class FeatureRequestController extends Controller
         $query = $product->featureRequests()
             ->leftJoin('users', 'users.id', '=', 'feature_requests.author_id')
             ->select('feature_requests.*')
-            ->with('tags');
+            ->with('tags')
+            ->withCount('votes');
 
         $query->when($request->query('status'), function ($query, $status) {
             $enum = FeatureRequestStatus::tryFrom($status);
@@ -71,7 +72,7 @@ class FeatureRequestController extends Controller
         $featureRequest = $product->featureRequests()->create($request->validated());
         $featureRequest->tags()->sync($request->validated('tag_ids', []));
 
-        $featureRequest->load('tags');
+        $featureRequest->load('tags')->loadCount('votes');
         return FeatureRequestResource::make($featureRequest)->response()->setStatusCode(201);
     }
 
@@ -107,6 +108,7 @@ class FeatureRequestController extends Controller
         FeatureRequest $featureRequest,
     ) {
         $featureRequest->status = $request->validated('status');
+        $featureRequest->load('tags')->loadCount('votes');
         $featureRequest->save();
 
         return FeatureRequestResource::make($featureRequest);

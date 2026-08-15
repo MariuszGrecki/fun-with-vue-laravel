@@ -1,57 +1,29 @@
 <script setup lang='ts'>
-import { ref } from 'vue';
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
-import InputText from 'primevue/inputtext';
 
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
-import { useToast } from 'primevue/usetoast';
 import { storeToRefs } from 'pinia';
-import {
-    useFeatureRequestStore,
-    type FeatureRequest
-} from '../stores/featureRequests';
+import { useFeatureRequestStore } from '../stores/featureRequests';
+import type { FeatureRequestStatus } from '../types/api';
 
 const featureRequestStore = useFeatureRequestStore();
-const { requests, requestCount } = storeToRefs(featureRequestStore);
+const { requests, requestCount, isLoading, error } =
+    storeToRefs(featureRequestStore);
 
 
-const toast = useToast();
+type TagSeverity = 'info' | 'warn' | 'success' | 'secondary';
 
-
-const dialogVisible = ref(false);
-const newRequestTitle = ref('');
-
-function submitRequest(): void {
-    const title = newRequestTitle.value.trim();
-
-    if (!title) {
-        return;
-    }
-
-    featureRequestStore.addRequest(title);
-
-    newRequestTitle.value = '';
-    dialogVisible.value = false;
-    
-    toast.add({
-        severity: 'success',
-        summary: 'Zgłoszenie dodane',
-        detail: title,
-        life: 3000,
-    })
-}
-
-type TagSeverity = 'info' | 'warn' | 'success';
-
-function getStatusSeverity(status: FeatureRequest['status']): TagSeverity {
-    const severityByStatus: Record<FeatureRequest['status'], TagSeverity> = {
+function getStatusSeverity(
+    status: FeatureRequestStatus,
+): TagSeverity {
+    const severityByStatus: Record<FeatureRequestStatus, TagSeverity> = {
         open: 'info',
         planned: 'warn',
-        released: 'success',    
-    }
+        in_progress: 'warn',
+        completed: 'success',
+        closed: 'secondary',
+    };
 
     return severityByStatus[status];
 }
@@ -62,10 +34,14 @@ function getStatusSeverity(status: FeatureRequest['status']): TagSeverity {
     <section>
         <h2>Feature requests ({{ requestCount }})</h2>
 
-        <DataTable :value="requests">
+        <p v-if="error">{{ error }}</p>
+        
+        <DataTable
+            :value="requests"
+            :loading="isLoading"    
+        >
             <Column field="title" header="Zgłoszenie" />
-            <Column field="votes" header="Głosy" />
-
+            <Column field="votes_count" header="Głosy" />   
             <Column header="Status">
                 <template #body="{data}">
                     <Tag 
@@ -75,33 +51,5 @@ function getStatusSeverity(status: FeatureRequest['status']): TagSeverity {
                 </template>
             </Column>
         </DataTable>
-        <Button
-            label="Dodal zgłoszenie"
-            icon="pi pi-plus"
-            @click="dialogVisible = true"
-        />
-        <Dialog
-            v-model:visible="dialogVisible"
-            modal
-            header="Nowe zgłoszenie"
-        >
-            <InputText
-                v-model="newRequestTitle"
-                placeholder="Tytuł zgłoszenia"
-            />
-            <template #footer>
-                <Button
-                    label="Anuluj"
-                    severity="secondary"
-                    @click="dialogVisible = false"
-                />
-
-                <Button
-                    label="Dodaj"
-                    icon="pi pi-check"
-                    @click="submitRequest"
-                />
-            </template>
-        </Dialog>
     </section>
 </template>

@@ -50,4 +50,3 @@ WAŻNE - Formatowanie tekstu:
   }
 ```
 
-

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\FeatureRequest;
+use App\Models\Vote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -90,5 +91,28 @@ class FeatureRequestTest extends TestCase
         $response->assertJsonMissing([
             'title' => $featureRequestForSecondProduct->title,
         ]);
+    }
+
+    public function test_feature_request_response_includes_vote_count(): void
+    {
+        $product = Product::factory()->create();
+
+        $featureRequest = FeatureRequest::factory()
+            ->for($product)
+            ->create();
+
+        Vote::factory()
+            ->count(3)
+            ->for($featureRequest)
+            ->create();
+
+        $response = $this->getJson(
+            '/api/products/' . $product->id . '/feature-requests',
+        );
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $featureRequest->id)
+            ->assertJsonPath('data.0.votes_count', 3);
     }
 }

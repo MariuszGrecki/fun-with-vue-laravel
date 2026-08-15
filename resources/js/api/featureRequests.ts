@@ -17,3 +17,13 @@ export async function createFeatureRequest(
 
     return response.data.data;
 }
+
+export async function getFeatureRequests(
+    productId: number,
+): Promise<FeatureRequest[]> {
+    const response = await apiClient.get<ApiResponse<FeatureRequest[]>>(
+        `/products/${productId}/feature-requests`,
+    );
+
+    return response.data.data;
+}

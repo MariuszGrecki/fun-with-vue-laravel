@@ -16,6 +16,7 @@ export type FeatureRequest = {
     title: string;
     description: string;
     status: FeatureRequestStatus;
+    votes_count: number;
     tags?: Tag[];
     created_at: string;
 };

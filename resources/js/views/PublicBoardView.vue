@@ -7,15 +7,18 @@ import StackList, { type StackItem } from '../components/StackList.vue';
 import FeatureRequestTable from '../components/FeatureRequestTable.vue';
 import { useProductStore, type VoterView } from '../stores/product';
 import { HealthResponse, getHealth } from '../api/health.js';
+import { useFeatureRequestStore } from '../stores/featureRequests';
 
 const productStore = useProductStore();
+const featureRequestStore = useFeatureRequestStore();
 const { activeView, currentProduct, productLabel } = storeToRefs(productStore);
 
 const health = ref<HealthResponse | null>(null);
 
 onMounted(async () => {
+    await featureRequestStore.fetchRequests(currentProduct.value.id);
     health.value = await getHealth();
-})
+});
 
 const views: VoterView[] = ['feedback', 'roadmap', 'changelog'];
 
