@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { getFeatureRequests } from '../api/featureRequests';
-import type { FeatureRequest } from '../types/api';
+import { getFeatureRequests, createFeatureRequest } from '../api/featureRequests';
+import type { FeatureRequest, CreateFeatureRequestPayload } from '../types/api';
 
 export const useFeatureRequestStore = defineStore('featureRequests', {
     state: () => ({
@@ -26,5 +26,14 @@ export const useFeatureRequestStore = defineStore('featureRequests', {
                 this.isLoading = false;
             }
         },
+        async createRequest(
+            productId: number,
+            payload: CreateFeatureRequestPayload,
+        ): Promise<FeatureRequest> {
+            const newFeature = await createFeatureRequest(productId, payload);
+            this.requests.push(newFeature)
+
+            return newFeature;
+        }
     },
 });

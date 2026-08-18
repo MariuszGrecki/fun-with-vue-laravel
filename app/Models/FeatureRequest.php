@@ -19,6 +19,10 @@ class FeatureRequest extends Model
         'description',
     ];
 
+    protected $attributes = [
+        'status' => 'open',
+    ];
+
     protected function casts(): array
     {
         return [

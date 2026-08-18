@@ -26,7 +26,11 @@ class FeatureRequestTest extends TestCase
             ]
         );
 
-        $response->assertCreated();
+        $response
+            ->assertCreated()
+            ->assertJsonPath('data.status', 'open')
+            ->assertJsonPath('data.votes_count', 0);
+            
         $this->assertDatabaseHas('feature_requests', [
             'product_id' => $product->id,
             'title' => 'Nowy wpis',

@@ -61,7 +61,10 @@ const stack: StackItem[] = [
 
         <StackList :stack="stack"/>  
 
-        <FeatureRequestTable v-if="activeView === 'feedback'"/>
+        <FeatureRequestTable 
+            v-if="activeView === 'feedback'"
+            :product-id="currentProduct.id"
+        />
 
         <section v-else-if="activeView === 'roadmap'">
             <h2>Roadmap</h2>
