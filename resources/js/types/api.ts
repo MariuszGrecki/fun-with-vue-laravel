@@ -24,6 +24,7 @@ export type FeatureRequest = {
 export type Vote = {
     id: number;
     feature_request_id: number;
+    email: string;
     created_at: string;
 };
 
@@ -56,3 +57,7 @@ export type CreateFeatureRequestPayload = {
     description: string;
     tag_ids?: number[];
 };
+
+export type CreateVotePayload = {
+    email: string;
+}

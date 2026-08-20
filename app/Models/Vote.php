@@ -11,6 +11,11 @@ class Vote extends Model
     /** @use HasFactory<\Database\Factories\VoteFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'feature_request_id',
+        'email',
+    ];
+
     public function featureRequest(): BelongsTo
     {
         return $this->belongsTo(FeatureRequest::class);

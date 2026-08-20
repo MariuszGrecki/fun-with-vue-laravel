@@ -96,7 +96,7 @@ Poza MVP zostaja: pelne AI, widgety embedowane, Evidence Score, billing, custom 
 - [x] Dzien 28: API client i obsluga bledow walidacji (uzupelnienie `ProductResource`, endpointu produktu i testu kontraktu).
 - [x] Dzien 29: Publiczny board w PrimeVue DataTable.
 - [x] Dzien 30: Formularz dodawania requestu w PrimeVue Dialog.
-- [ ] Dzien 31: Glosowanie z optimistic update i obsluga rollbacku.
+- [x] Dzien 31: Glosowanie z optimistic update i obsluga rollbacku.
 - [ ] Dzien 32: Szczegoly requestu i komentarze.
 - [ ] Dzien 33: Store `requestFilters`: status, sortowanie, search.
 - [ ] Dzien 34: Admin lista requestow z DataTable i Tag statusu.

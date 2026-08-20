@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { getFeatureRequests, createFeatureRequest } from '../api/featureRequests';
-import type { FeatureRequest, CreateFeatureRequestPayload } from '../types/api';
+import type { FeatureRequest, CreateFeatureRequestPayload, CreateVotePayload } from '../types/api';
+import { voteForFeatureRequest } from '../api/votes';
 
 export const useFeatureRequestStore = defineStore('featureRequests', {
     state: () => ({
@@ -34,6 +35,27 @@ export const useFeatureRequestStore = defineStore('featureRequests', {
             this.requests.push(newFeature)
 
             return newFeature;
+        },
+        async voteForRequest(
+            FeatureRequestId: number,
+            payload: CreateVotePayload,
+        ): Promise<void> {
+            const request = this.requests.find((r) => r.id === FeatureRequestId);
+
+            if (!request) {
+                return;
+            }
+
+            const previousVotesCount = request.votes_count;
+
+            request.votes_count++;
+
+            try {
+                await voteForFeatureRequest(FeatureRequestId, payload);
+            } catch (error) {
+                request.votes_count = previousVotesCount;
+                throw error;
+            }
         }
     },
 });

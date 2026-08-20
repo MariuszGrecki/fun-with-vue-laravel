@@ -13,6 +13,8 @@ import { useFeatureRequestStore } from '../stores/featureRequests';
 import type {  FeatureRequestStatus , CreateFeatureRequestPayload, ValidationErrors } from '../types/api';
 import { getValidationErrors } from '../api/errors';
 import { useToast } from 'primevue/usetoast';
+import axios from 'axios';
+
 
 const featureRequestStore = useFeatureRequestStore();
 const { requests, requestCount, isLoading, error } =
@@ -76,6 +78,38 @@ async function submitRequest(): Promise<void> {
     }
 }
 
+async function castVote(featureRequestId: number): Promise<void> {
+    const email = prompt('Podaj swój email:');
+    
+    if (!email) {
+        return;
+    }        
+
+    try {
+        await featureRequestStore.voteForRequest(featureRequestId, { email });
+
+        toast.add({
+            severity: 'success',
+            summary: 'Głos oddany',
+            life: 3000,
+        });
+    } catch (error: unknown) {
+        let detail = 'Nie udało się oddać głosu.';
+
+        if (axios.isAxiosError(error) && error.response?.data?.message) {
+            detail = error.response.data.message;
+        }
+
+        toast.add({
+            severity: 'error',
+            summary: 'Błąd',
+            detail,
+            life: 3000,
+        });
+    }
+}
+
+
 function getStatusSeverity(
     status: FeatureRequestStatus,
 ): TagSeverity {
@@ -109,7 +143,16 @@ function getStatusSeverity(
             :loading="isLoading"    
         >
             <Column field="title" header="Zgłoszenie" />
-            <Column field="votes_count" header="Głosy" />   
+            <Column field="votes_count" header="Głosy">   
+                <template #body="{data}">
+                    <Button
+                        :label="String(data.votes_count)"
+                        icon="pi pi-thumbs-up"
+                        size="small"
+                        @click="castVote(data.id)"
+                    />
+                </template>
+            </Column>
             <Column header="Status">
                 <template #body="{data}">
                     <Tag 
