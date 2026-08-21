@@ -18,6 +18,7 @@ export type FeatureRequest = {
     status: FeatureRequestStatus;
     votes_count: number;
     tags?: Tag[];
+    comments?: Comment[];
     created_at: string;
 };
 
@@ -59,5 +60,11 @@ export type CreateFeatureRequestPayload = {
 };
 
 export type CreateVotePayload = {
+    email: string;
+}
+
+export type CreateCommentPayload = {
+    body: string;
+    author_name: string;
     email: string;
 }

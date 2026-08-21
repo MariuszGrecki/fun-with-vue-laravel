@@ -21,6 +21,7 @@ class FeatureRequestResource extends JsonResource
             'status' => $this->status,
             'votes_count' => $this->votes_count,
             'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'created_at' => $this->created_at,
         ];
     }

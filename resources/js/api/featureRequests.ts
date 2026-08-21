@@ -27,3 +27,13 @@ export async function getFeatureRequests(
 
     return response.data.data;
 }
+
+export async function getFeatureRequest(
+    featureRequest: number,
+): Promise<FeatureRequest> {
+    const response = await apiClient.get<ApiResponse<FeatureRequest>>(
+        `/feature-requests/${featureRequest}`,
+    );
+
+    return response.data.data;
+}

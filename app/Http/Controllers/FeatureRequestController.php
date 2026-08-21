@@ -79,9 +79,11 @@ class FeatureRequestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(FeatureRequest $featureRequest)
     {
-        //
+        $featureRequest->load('tags', 'comments')->loadCount('votes');
+
+        return FeatureRequestResource::make($featureRequest);
     }
 
     /**
